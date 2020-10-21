@@ -9,7 +9,7 @@ Algorithms::Algorithms()
 }
 
 
-int Algorithms::getPointLinePosition(QPointF &q, QPointF &p1, QPointF &p2)
+int Algorithms::getPointLinePosition(QPoint &q, QPoint &p1, QPoint &p2)
 {
     //Tolerance
     double eps = 300;
@@ -45,7 +45,7 @@ int Algorithms::getPointLinePosition(QPointF &q, QPointF &p1, QPointF &p2)
 }
 
 
-double Algorithms::getAngle(QPointF &p1, QPointF &p2, QPointF &p3, QPointF &p4)
+double Algorithms::getAngle(QPoint &p1, QPoint &p2, QPoint &p3, QPoint &p4)
 {
     //Get vectors u, v
     double ux = p2.x() - p1.x();
@@ -64,7 +64,7 @@ double Algorithms::getAngle(QPointF &p1, QPointF &p2, QPointF &p3, QPointF &p4)
 }
 
 
-int Algorithms::getPositionWinding(QPointF &q, std::vector<QPointF> &pol)
+int Algorithms::getPositionWinding(QPoint &q, std::vector<QPoint> &pol)
 {
     //Position of a point and polygon: Winding Number Algorithm
     //q inside P: 1
@@ -114,7 +114,7 @@ int Algorithms::getPositionWinding(QPointF &q, std::vector<QPointF> &pol)
 }
 
 
-int Algorithms::getPositionRay(QPointF &q, std::vector<QPointF> &pol)
+int Algorithms::getPositionRay(QPoint &q, std::vector<QPoint> &pol)
 {
     //Position of a point and polygon: Ray Crossing Algorithm
     //q inside P: 1

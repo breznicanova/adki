@@ -33,16 +33,16 @@ void Widget::on_drawPointPolygon_clicked()
 void Widget::on_analyze_clicked()
 {
     //Get point q
-    QPointF q= ui->Canvas->getPoint();
+    QPoint q= ui->Canvas->getPoint();
 
     //Get polygon
-    std::vector<QPolygonF> polygons = ui->Canvas->getPolygons();
+    std::vector<QPolygon> polygons = ui->Canvas->getPolygons();
 
     //Get combo-box status, select method
     Algorithms alg;
-    QPolygonF one_polygon;
+    QPolygon one_polygon;
     std::vector<int> result;
-    std::vector<QPointF> pol;
+    std::vector<QPoint> pol;
     int p = 0;
     int res = 0;
 

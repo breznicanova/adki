@@ -4,17 +4,15 @@
 #include <vector>
 #include <QWidget>
 #include <QtGui>
-#include <QPointF>
-#include <QPolygonF>
 
 class Draw : public QWidget
 {
     Q_OBJECT
 private:
     boolean draw_mode;  //true = polygon, false = point
-    QPolygonF polygon;
-    std::vector <QPolygonF> polygons;
-    QPointF q;
+    QPolygon polygon;
+    std::vector <QPolygon> polygons;
+    QPoint q;
     std::vector <int> result;
 
 public:
@@ -22,9 +20,9 @@ public:
     void mousePressEvent(QMouseEvent *e);
     void paintEvent(QPaintEvent *e);
     void changeMode(){draw_mode = !draw_mode;}
-    QPointF & getPoint(){return q;}
+    QPoint & getPoint(){return q;}
     void loadFile(std::string &string_path);
-    std::vector<QPolygonF> getPolygons (){return polygons;}
+    std::vector<QPolygon> getPolygons (){return polygons;}
     void setResult(std::vector<int> res){result = res;}
     void clearC();
 };

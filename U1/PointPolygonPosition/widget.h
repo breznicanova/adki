@@ -2,8 +2,6 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include <QPointF>
-#include <QPolygonF>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }

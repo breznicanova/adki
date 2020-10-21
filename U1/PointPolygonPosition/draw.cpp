@@ -23,7 +23,7 @@ void Draw::mousePressEvent(QMouseEvent *e)
     if (draw_mode)
     {
         //Create new point
-        QPointF p(x, y);
+        QPoint p(x, y);
 
         //Add point to the polygon
         polygon.push_back(p);
@@ -49,12 +49,12 @@ void Draw::paintEvent(QPaintEvent *e)
     painter.begin(this);
 
     //Create polygon
-    QPolygonF pol;
+    QPolygon pol;
 
     //Copy all points into polygon
-    for (int i = 0; i< polygon.size(); i++ )
+    for (int i = 0; i< polygons.size(); i++ )
     {
-         pol.append(polygon[i]);
+         pol.append(polygons[i]);
     }
 
     //Draw polygon
@@ -63,7 +63,7 @@ void Draw::paintEvent(QPaintEvent *e)
     //Set color of colored polygon
     QBrush brush;
     QPainterPath path;
-    QPolygonF colored_polygon;
+    QPolygon colored_polygon;
     brush.setColor(Qt::green);
     brush.setStyle(Qt::BDiagPattern);
 
@@ -97,7 +97,7 @@ void Draw::loadFile(std::string &string_path)
     int id;
     double x;
     double y;
-    QPolygonF polygon;
+    QPolygon polygon;
 
 
     std::ifstream polygonFile(string_path);
@@ -115,10 +115,10 @@ void Draw::loadFile(std::string &string_path)
                     polygons.push_back(polygon);
                 }
                 polygon.clear();
-                polygon << QPointF(x, y);
+                polygon << QPoint(x, y);
             }
             else
-                polygon << QPointF(x, y);
+                polygon << QPoint(x, y);
         }
 
         //Add last polygon into vector
