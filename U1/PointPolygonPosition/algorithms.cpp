@@ -12,7 +12,7 @@ Algorithms::Algorithms()
 int Algorithms::getPointLinePosition(QPoint &q, QPoint &p1, QPoint &p2)
 {
     //Tolerance
-    double eps = 300;
+    double eps = 1.0e-3;
 
     //Get point and line position
     double ux = p2.x() - p1.x();
@@ -57,9 +57,10 @@ double Algorithms::getAngle(QPoint &p1, QPoint &p2, QPoint &p3, QPoint &p4)
     double nu = sqrt(ux * ux + uy * uy);
     double nv = sqrt(vx * vx + vy * vy);
 
-    //Dot product
+    //Dot product (scalar product)
     double dot = ux * vx + uy * vy;
 
+    // Return angle omega of two vectors
     return fabs(acos(dot/(nu*nv)));
 }
 
@@ -74,43 +75,43 @@ int Algorithms::getPositionWinding(QPoint &q, std::vector<QPoint> &pol)
     double Omega = 0.0;
 
     //Set tolerance
-    const double eps = 1.0e-6;
+    const double eps = 1.0e-3;
 
     //Amount of polygon vertices
     const int n = pol.size();
 
     //Process all vertices of the polygon
-    for (int i = 0; i < n; i++)
-    {
-        //Get angle omega
-        double om = getAngle(q,pol[i],q,pol[(i+1)%n]);
+    for (int i = 0; i < n; i++){
 
-        //Get orientation of q and pol[i], pol[i+1]
+        //Measure angle
+        double om = getAngle(pol[i], q, pol[(i+1)%n], q);
+
+        //Get orientation of the point and the polygon edge
         int orientation = getPointLinePosition(q, pol[i], pol[(i+1)%n]);
 
-        // Point on the edge
-        if (orientation == -1)
-            return -1;
-
-        // Point on the line but not on the edge
-        if (orientation == -2)
-            return 0;
-
-        //Point in the left halfplane
+        //Point in the left half plane
         if (orientation == 1)
             Omega += om;
 
-        //Point in the right halfplane
+        //Point in the right half plane
         else
             Omega -= om;
     }
-
-    //Point q inside polygon
-    if (fabs(fabs(Omega) - 2*M_PI) < eps)
+    //Point inside polygon
+    if (fabs(fabs(Omega) - 2 * M_PI) <= eps)
         return 1;
 
-    //Point q outside polygon
-    return 0;
+    //Point outside polygon
+    else if (fabs(fabs(Omega)) <= eps){
+        return 0;
+    }
+
+    //Point on the boudary
+    else
+    {
+        return -1;
+    }
+
 }
 
 
@@ -128,7 +129,7 @@ int Algorithms::getPositionRay(QPoint &q, std::vector<QPoint> &pol)
     int l = 0;
 
     // Tolerance
-    double eps = 1.0e-6;
+    double eps = 1.0e-3;
 
     //Amount of polygon vertices
     const int n = pol.size();
