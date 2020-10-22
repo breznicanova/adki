@@ -73,14 +73,14 @@ void Widget::on_analyze_clicked()
                 res = alg.getPositionRay(q, pol);
                 result.push_back(res);
             }
-        else result.push_back(1);
+        else
+            result.push_back(1);
         pol.clear();
         p=0;
     }
 
-    int i = 1;
-    int j = -1;
-    int k = -2;
+    //List position of point into label
+    int i = 1, j = -1, k = -2;
     if (std::count(result.begin(), result.end(),i))
         ui->label->setText("Inside");
     else if (std::count(result.begin(), result.end(),j))
@@ -91,14 +91,17 @@ void Widget::on_analyze_clicked()
     else
         ui->label->setText("Outside");
 
-
+    //Save res into value result
     ui->Canvas->setResult(result);
+
+    //Repaint screen
     ui->Canvas->repaint();
 }
 
 
 void Widget::on_clear_clicked()
 {
+    //Clear canvas
     ui->Canvas->clearC();
     ui->label->setText("");
 }
@@ -106,14 +109,13 @@ void Widget::on_clear_clicked()
 
 void Widget::on_importPolygons_clicked()
 {
-    QString path = QFileDialog::getOpenFileName(this, tr("Open File"),
+    //Choose txt file in file dialog
+    QString path = QFileDialog::getOpenFileName(this, tr("Open Text File"),
                                                     "../",
                                                     tr("Text Files (*.txt)"));
+    //Return string path
     std::string string_path = path.toStdString();
 
+    //Import polygons
     ui->Canvas->loadFile(string_path);
-
-
-
-
 }
