@@ -99,7 +99,7 @@ void Draw::loadFile(std::string &string_path)
     double y;
     QPolygon polygon;
 
-
+    //Path to polygon file
     std::ifstream polygonFile(string_path);
 
     if(polygonFile.is_open())
@@ -124,9 +124,11 @@ void Draw::loadFile(std::string &string_path)
         //Add last polygon into vector
         polygons.push_back(polygon);
 
+        //Close polygon file
         polygonFile.close();
     }
 
+   //Repaint screen
    repaint();
 }
 
@@ -140,7 +142,7 @@ void Draw::clearC()
     q.setX(-50);
     q.setY(-50);
 
-    //Remove polygons
+    //Remove polygons from Canvas
     result.clear();
 
     //Repaint screen

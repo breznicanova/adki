@@ -120,7 +120,6 @@ int Algorithms::getPositionRay(QPoint &q, std::vector<QPoint> &pol)
     //Position of a point and polygon: Ray Crossing Algorithm
     //q inside P: 1
     //q outside P: 0
-    //q on P boundary: -1
 
     //Amount of intersections on the right half plane
     int k = 0;
