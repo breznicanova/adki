@@ -4,9 +4,8 @@
 #include "sortbyangle.h"
 #include "removebyangle.h"
 #include <cmath>
+#include <qdebug.h>
 #include <deque>
-#include <stack>
-
 
 Algorithms::Algorithms()
 {
@@ -295,84 +294,61 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
     return ch;
 }
 
-
-QPolygon Algorithms::grahamScan(std::vector<QPoint> &points)
+QPolygon Algorithms::graham(std::vector<QPoint> &points)
 {
-    //Create Convex Hull using Graham Scan Algorithm
-    std::deque<QPoint> ch2;
-    QPolygon ch;
+    //Create Convex Hull using Graham Algorithm
 
-    // Find pivot q
-    QPoint q = *min_element(points.begin(),points.end(), sortByY());   // musime dereferencovat *
+    std::deque<QPoint> ch;
+    QPolygon ch2;
 
-    // Sort points by their directions
-    std::sort(points.begin(),points.end(), sortByAngle(q));
+    //Find pivot
+    QPoint q = *min_element(points.begin(),points.end(), sortByY());
 
-    // Remove duplicate points
-    auto it = std::unique(points.begin(),points.end(), removeByAngle(q));
+    //Sort points by their directions
+    std::sort(points.begin(), points.end(), sortByAngle(q));
 
-    // Trim vector
-    points.resize(it-points.begin());
+    //Remove duplicate points
+    auto it = std::unique(points.begin(),points.end(),removeByAngle(q));
 
-    // Add 2 points to CH
-    ch2.push_front(q);
-    ch2.push_front(points[1]);
+    //Trim vector
+    points.resize(it - points.begin());
 
-    // Process all points
-    int j = 2;
-    int n = points.size();
+    //Add 2 points to CH
+    ch.push_front(q);
+    ch.push_front(points[1]);
 
-    while (j < n)
+    //Process all points
+    int j = 2, n = points.size();
+    while (j<n)
     {
-        // Get point on the top
-        QPoint p1 = ch2.front();
+        //Get point on the top
+        QPoint p1 = ch.front();
 
-        // Remove point
-        ch2.pop_front();
+        //Remove point
+        ch.pop_front();
 
-        // Get point on the top
-        QPoint p2 = ch2.front();
+        //Get point on the top
+        QPoint p2 = ch.front();
 
-        // Is points [j] in the left halfplane?
-         if(getPointLinePosition(points[j],p2,p1)==1)
+        //Is points[j] in the left halfplane?
+        if (getPointLinePosition(points[j],p2,p1)==1)
         {
-            // Push point back to stack
-            ch2.push_front(p1);
+            //Push point back to Stack
+            ch.push_front(p1);
 
-            // Push next point to stack
-            ch2.push_front(points[j]);
+            //Push next point back to Stack
+            ch.push_front(points[j]);
 
-            // Increment j
+            //Increment j
             j++;
         }
-
     }
 
     // Adding elements one by one to the vector
-    while (!ch2.empty())
+    while (!ch.empty())
     {
-        ch.push_back(ch2.front());
-        ch2.pop_front();
+        ch2.push_back(ch.front());
+        ch.pop_front();
     }
-    return ch;
+    return ch2;
 }
-
-QPolygon Algorithms::removeDuplicite(std::vector<QPoint> &points)
-{
-    QPolygon points_s;
-    std::sort(points.begin(), points.end(), sortByX());
-    int n = points.size();
-    int i = 0;
-    while (i < n)
-    {
-        int x_diff = points[i].x();
-        while ((x_diff == points[i%n].x()) && (i < n))
-        {
-            if ((points[i].y() != points[(i+1)%n].y()))
-                points_s.push_back(points[i]);
-            i++;
-        }
-    }
-    return points_s;
-}
-
