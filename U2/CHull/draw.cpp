@@ -62,6 +62,7 @@ std::vector<QPoint> Draw::circle(int n,int height, int width){
 }
 
 std::vector<QPoint> Draw::grid(int n){
+
     QPoint point;
 
     int count = sqrt(n);
@@ -78,7 +79,6 @@ std::vector<QPoint> Draw::grid(int n){
 
     return points;
 }
-
 
 std::vector<QPoint> Draw::random(int n){
 

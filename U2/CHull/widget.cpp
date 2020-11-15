@@ -35,19 +35,18 @@ void Widget::on_pushButton_clicked()
 
     clock_t start_timer = std::clock();
 
-    // Jarvis Scan
+    //Jarvis Scan
     if (ui->comboBox->currentIndex()==0)
         ch = alg.jarvis(points);
-    // QHull
+    //QHull
     else if (ui->comboBox->currentIndex()==1)
         ch = alg.qhull(points);
-    // Sweep Line
-    else  if (ui->comboBox->currentIndex()==2)
+    //Sweep Line
+    else if (ui->comboBox->currentIndex()==2)
         ch = alg.sweepLine(points);
-    // Graham Scan
-    else if (ui->comboBox->currentIndex()== 3)
-       ch = alg.grahamScan(points);
-
+    //Graham Scan
+    else
+        ch = alg.graham(points);
 
     //Set Convex hull
     ui -> Canvas -> setCH(ch);
@@ -79,20 +78,15 @@ void Widget::on_generate_clicked()
 {
     std::vector<QPoint> points;
     Draw drw;
-    //Set width and height as width and height canvas
-    int n;
-    int width = (ui->Canvas->width());
-    int height = (ui->Canvas->height());
-
+    int n, height, width;
     if (ui->comboBox_2->currentIndex()==0){
         n = ui->lineEdit->text().toInt();
         height = ui->Canvas->height();
         width = ui->Canvas->width();
-        points = drw.circle(n, height, width);
+        points = drw.circle(n,height,width);
     }
     else if (ui->comboBox_2->currentIndex()==1){
         n = ui->lineEdit->text().toInt();
-        height = ui->Canvas->height();
         points = drw.grid(n);
     }
     else if (ui->comboBox_2->currentIndex()==2){
@@ -105,8 +99,6 @@ void Widget::on_generate_clicked()
                           tr("The vector of points is empty.\n"
                              "Set count of points!"),QMessageBox::Ok);
     }
-
-
     ui->Canvas->setPoints(points);
     ui->Canvas->repaint();
 }
@@ -114,5 +106,16 @@ void Widget::on_generate_clicked()
 
 void Widget::on_clear_all_clicked()
 {
+
+    //Get Convex Hull
+    QPolygon &ch = ui->Canvas->getCH();
+
+    //Clear Convex Hull
+    ch.clear();
+
+    //Clear points
     ui->Canvas->clearC();
+
+    //Repaint screen
+    repaint();
 }
