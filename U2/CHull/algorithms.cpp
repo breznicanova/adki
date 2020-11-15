@@ -352,3 +352,24 @@ QPolygon Algorithms::graham(std::vector<QPoint> &points)
     }
     return ch2;
 }
+
+QPolygon Algorithms::strictlyCH(QPolygon &ch)
+{
+    QPolygon strictly_ch;
+
+    // Check if the first point and the last point are the same
+    if (ch[0] == ch.back())
+        ch.removeLast();
+
+    int n = ch.size();
+
+    // Process all points
+    for (int i = 0; i < n; i++)
+    {
+        // Check if three points are not collinear
+        if (getPointLinePosition(ch[(i+2)%n], ch[i], ch[(i+1)%n]) != -1)
+            strictly_ch.push_back(ch[(i+1)%n]);
+    }
+
+    return strictly_ch;
+}

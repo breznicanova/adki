@@ -58,8 +58,18 @@ void Widget::on_pushButton_clicked()
     //Set time
     ui -> label -> setText(QString::number(time) + "ms");
 
-    //Repaint screen
-    repaint();
+    // Draw strictly convex hull
+    if (ui->checkBox->isChecked())
+    {
+        QPolygon strictly_ch = Algorithms::strictlyCH(ch);
+        ui->Canvas->setCH(strictly_ch);
+        repaint();
+    }
+    else
+    {
+        ui->Canvas->setCH(ch);
+        repaint();
+    }
 }
 
 void Widget::on_clear_CH_clicked()
