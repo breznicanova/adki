@@ -35,6 +35,7 @@ void Draw::paintEvent(QPaintEvent *e)
     }
 
     //Draw polygon
+    qp.setPen(Qt::red);
     qp.drawPolygon(ch);
 
     //End draw
