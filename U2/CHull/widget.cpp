@@ -48,8 +48,33 @@ void Widget::on_pushButton_clicked()
     else
         ch = alg.graham(points);
 
-    //Set Convex hull
-    ui -> Canvas -> setCH(ch);
+    //Sort out points on Convex hull
+
+    std::vector<QPoint> colPoints;
+
+    for (int i; i<points.size();i++)
+    {
+        if (ch.contains(points[i]))
+        {
+            colPoints.push_back(points[i]);
+        }
+    }
+
+    ui -> Canvas -> setColoredPoints(colPoints);
+
+    //Draw strictly convex hull
+    if (ui->checkBox->isChecked())
+    {
+        QPolygon strictly_ch = Algorithms::strictlyCH(ch);
+        ui->Canvas->setCH(strictly_ch);
+        repaint();
+    }
+    //Or not
+    else
+    {
+        ui->Canvas->setCH(ch);
+        repaint();
+    }
 
     clock_t end_timer = std::clock();
 
@@ -57,19 +82,6 @@ void Widget::on_pushButton_clicked()
 
     //Set time
     ui -> label -> setText(QString::number(time) + "ms");
-
-    // Draw strictly convex hull
-    if (ui->checkBox->isChecked())
-    {
-        QPolygon strictly_ch = Algorithms::strictlyCH(ch);
-        ui->Canvas->setCH(strictly_ch);
-        repaint();
-    }
-    else
-    {
-        ui->Canvas->setCH(ch);
-        repaint();
-    }
 }
 
 void Widget::on_clear_CH_clicked()
