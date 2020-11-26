@@ -17,7 +17,6 @@ void Draw::mousePressEvent(QMouseEvent *e)
 
     //Repaint
     repaint();
-
 }
 
 
@@ -29,18 +28,28 @@ void Draw::paintEvent(QPaintEvent *e)
 
     //Draw points
     int r = 5;
+    qp.setPen(Qt::black);
     for(int i = 0; i < points.size(); i++)
     {
         qp.drawEllipse(points[i].x() - r,points[i].y() - r, 2 * r, 2 * r);
     }
 
-    //Draw polygon
+    //Points on CH
     qp.setPen(Qt::red);
+    for(int i = 0; i < coloredPoints.size(); i++)
+    {
+        qp.drawEllipse(coloredPoints[i].x() - r,coloredPoints[i].y() - r, 2 * r, 2 * r);
+    }
+
+    //Draw polygon
+    qp.setPen(Qt::darkGreen);
     qp.drawPolygon(ch);
 
     //End draw
     qp.end();
 }
+
+
 
 
 std::vector<QPoint> Draw::circle(int n,int height, int width){
@@ -107,3 +116,4 @@ void Draw::clearC()
     //Repaint screen
     repaint();
 }
+
