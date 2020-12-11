@@ -308,7 +308,7 @@ QPolygon Algorithms::graham(std::vector<QPoint> &points)
     std::sort(points.begin(), points.end(), sortByAngle(q));
 
     //Remove duplicate points
-    auto it = std::unique(points.begin(),points.end(),removeByAngle(q));
+    std::vector <QPoint> ::iterator it = std::unique(points.begin(), points.end(), removeByAngle(q));
 
     //Trim vector
     points.resize(it - points.begin());
@@ -319,7 +319,7 @@ QPolygon Algorithms::graham(std::vector<QPoint> &points)
 
     //Process all points
     int j = 2, n = points.size();
-    while (j<n)
+    while (j < n)
     {
         //Get point on the top
         QPoint p1 = ch.front();
@@ -345,11 +345,12 @@ QPolygon Algorithms::graham(std::vector<QPoint> &points)
     }
 
     // Adding elements one by one to the vector
-    while (!ch.empty())
+    for(int i=0; i < ch.size(); i++)
     {
-        ch2.push_back(ch.front());
-        ch.pop_front();
+        QPoint a = ch[i];
+        ch2.push_back(a);
     }
+
     return ch2;
 }
 
