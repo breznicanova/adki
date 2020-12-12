@@ -28,42 +28,84 @@ void Draw::paintEvent(QPaintEvent *event)
     }
 
     //Draw slope
-    double k = 255/180.0;
-
-    for (Triangle t : dtm)
+    if(slope == TRUE)
     {
-        //Get triangle vertices
-        QPoint3D p1 = t.getP1();
-        QPoint3D p2 = t.getP2();
-        QPoint3D p3 = t.getP3();
+        for (Triangle t : dtm)
+        {
+            double k = 255/180.0;
+            //Get triangle vertices
+            QPoint3D p1 = t.getP1();
+            QPoint3D p2 = t.getP2();
+            QPoint3D p3 = t.getP3();
 
-        //Get slope
-        int colorSlope = 255 - t.getSlope()*k;
+            //Get slope
+            int colorSlope = 255 - t.getSlope() * k;
 
-        //Create color and set brush
-        QColor c(colorSlope,colorSlope,colorSlope);
-        painter.setBrush(c);
+            //Create color and set brush
+            QColor c(colorSlope,colorSlope,colorSlope);
+            painter.setBrush(c);
 
-        //Create triangle, add vertices
-        QPolygonF triangle;
-        triangle.append(QPointF(p1.x(), p1.y()));
-        triangle.append(QPointF(p2.x(), p2.y()));
-        triangle.append(QPointF(p3.x(), p3.y()));
+            //Create triangle, add vertices
+            QPolygonF triangle;
+            triangle.append(QPointF(p1.x(), p1.y()));
+            triangle.append(QPointF(p2.x(), p2.y()));
+            triangle.append(QPointF(p3.x(), p3.y()));
 
-        //Draw triangle
-        painter.drawPolygon(triangle);
+            //Draw triangle
+            painter.drawPolygon(triangle);
+        }
+
+        //Draw contour lines
+        QPen q(Qt::gray, 1);
+        painter.setPen(q);
+
+        for (int i = 0; i < contours.size(); i++)
+        {
+            painter.drawLine(contours[i].getStart(), contours[i].getEnd());
+        }
+
+        painter.end();
     }
 
-    //Draw contour lines
-    QPen q(Qt::gray, 1);
-    painter.setPen(q);
-
-    for (int i = 0; i < contours.size(); i++)
+    //Draw aspect
+    if(aspect == TRUE)
     {
-        painter.drawLine(contours[i].getStart(), contours[i].getEnd());
-    }
+        for (Triangle t : dtm)
+        {
+            double k = 255.0 / 360;
+            //Get triangle vertices
+            QPoint3D p1 = t.getP1();
+            QPoint3D p2 = t.getP2();
+            QPoint3D p3 = t.getP3();
 
-    painter.end();
+            //Get aspect
+            int colorAspect = 255 - t.getAspect() * k;
+
+            //Create color and set brush
+            QColor c(colorAspect, colorAspect, colorAspect);
+            painter.setBrush(c);
+
+            //Create triangle, add vertices
+            QPolygonF triangle;
+            triangle.append(QPointF(p1.x(), p1.y()));
+            triangle.append(QPointF(p2.x(), p2.y()));
+            triangle.append(QPointF(p3.x(), p3.y()));
+
+            //Draw triangle
+            painter.drawPolygon(triangle);
+        }
+
+        //Draw contour lines
+        QPen q(Qt::gray, 1);
+        painter.setPen(q);
+
+        for (int i = 0; i < contours.size(); i++)
+        {
+            painter.drawLine(contours[i].getStart(), contours[i].getEnd());
+        }
+
+        painter.end();
+    }
 }
 
 

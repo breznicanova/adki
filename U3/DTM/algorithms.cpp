@@ -369,6 +369,19 @@ double Algorithms::getSlope(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3)
 double Algorithms::getAspect(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3)
 {
     //Compute aspect of triangle in DT
+    double ux = p2.x() - p1.x();
+    double uy = p2.y() - p1.y();
+    double uz = p2.getZ() - p1.getZ();
+
+    double vx = p3.x() - p1.x();
+    double vy = p3.y() - p1.y();
+    double vz = p3.getZ() - p1.getZ();
+
+    //Normal vector and its norm
+    double nx = uy * vz - vy * uz;
+    double ny = -(ux * vz - vx * uz);
+
+    return atan2(nx, ny) / M_PI * 180;
 }
 
 

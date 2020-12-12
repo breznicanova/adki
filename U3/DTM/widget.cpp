@@ -104,6 +104,8 @@ void Widget::on_pushButton_2_clicked()
 {
     Algorithms a;
     std::vector<Edge> dt;
+    bool slope = FALSE;
+    bool aspect = FALSE;
 
     //DT needs to be created
     if(dt.size() == 0)
@@ -123,6 +125,19 @@ void Widget::on_pushButton_2_clicked()
 
     //Set analysis
     ui->Canvas->setDTM(dtm);
+
+    //Set method
+    if (ui->comboBox->currentIndex()==0){
+        slope = TRUE;
+        aspect = FALSE;
+    }
+    else if (ui->comboBox->currentIndex()==1){
+        slope = FALSE;
+        aspect = TRUE;
+    }
+
+    ui->Canvas->setAspect(aspect);
+    ui->Canvas->setSlope(slope);
 
     //Repaint
     repaint();

@@ -48,8 +48,14 @@
      </item>
      <item>
       <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
-        <string>Z_min [m]</string>
+        <string>Minimum height [m]</string>
        </property>
       </widget>
      </item>
@@ -62,8 +68,14 @@
      </item>
      <item>
       <widget class="QLabel" name="label_2">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
-        <string>Z_max [m]</string>
+        <string>Maximum height [m]</string>
        </property>
       </widget>
      </item>
@@ -76,8 +88,14 @@
      </item>
      <item>
       <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
-        <string>Interval z [m]</string>
+        <string>Interval of contours [m]</string>
        </property>
       </widget>
      </item>
@@ -96,23 +114,36 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_12">
-       <property name="text">
-        <string>Clear contours</string>
+      <widget class="QLabel" name="Analyze">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
+       <property name="text">
+        <string>Select an analyze:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <item>
+        <property name="text">
+         <string>Slope</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Aspect</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_2">
        <property name="text">
         <string>Analyze DTM</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>Clear analysis</string>
        </property>
       </widget>
      </item>
@@ -133,6 +164,20 @@
       <widget class="QPushButton" name="pushButton_11">
        <property name="text">
         <string>Clear Points</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_12">
+       <property name="text">
+        <string>Clear contours</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="text">
+        <string>Clear analysis</string>
        </property>
       </widget>
      </item>

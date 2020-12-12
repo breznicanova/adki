@@ -17,6 +17,7 @@ private:
     std::vector <Edge> dt;
     std::vector <Edge> contours;
     std::vector <Triangle> dtm;
+    bool slope, aspect;
 
 public:
     explicit Draw(QWidget *parent = nullptr);
@@ -30,8 +31,8 @@ public:
     std::vector<Edge> & getContours(){return contours;}
     void setDTM(std::vector<Triangle> &dtm_){dtm = dtm_;}
     std::vector<Triangle> & getDTM(){return dtm;}
-
-    //void loadFile(std::string &string_path);
+    void setSlope(bool &slope_){slope = slope_;}//
+    void setAspect(bool &aspect_){aspect = aspect_;}
     void loadFile(std::string &path, std::vector<QPoint3D> &points,  QSizeF &canvas_size, double &min_z, double &max_z);
 
 signals:
