@@ -259,7 +259,7 @@ QPoint3D Algorithms::getContourPoint(QPoint3D &p1, QPoint3D &p2, double z)
 }
 
 
-std::vector<Edge> Algorithms::contourLines(std::vector<Edge> &dt, double z_min, double z_max, double dz)
+std::vector<Edge> Algorithms::contourLines(std::vector<Edge> &dt, double z_min, double z_max, double dz, std::vector<double> &contour_heights)
 {
     //Create contour lines using linear interpolation
     std::vector<Edge> contours;
@@ -311,6 +311,7 @@ std::vector<Edge> Algorithms::contourLines(std::vector<Edge> &dt, double z_min, 
                 //Create contour line and add to the list
                 Edge e(A, B);
                 contours.push_back(e);
+                contour_heights.push_back(z);
             }
 
             //Edges 2,3 and 3,1 are intersected by plane
@@ -323,6 +324,7 @@ std::vector<Edge> Algorithms::contourLines(std::vector<Edge> &dt, double z_min, 
                 //Create contour line and add to the list
                 Edge e(A, B);
                 contours.push_back(e);
+                contour_heights.push_back(z);
             }
 
             //Edges 1,2 and 3,1 are intersected by plane
@@ -335,6 +337,7 @@ std::vector<Edge> Algorithms::contourLines(std::vector<Edge> &dt, double z_min, 
                 //Create contour line and add to the list
                 Edge e(A, B);
                 contours.push_back(e);
+                contour_heights.push_back(z);
             }
         }
     }

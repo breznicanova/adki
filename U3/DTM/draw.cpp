@@ -7,6 +7,12 @@ Draw::Draw(QWidget *parent) : QWidget(parent)
 
 }
 
+void Draw::setContours(std::vector<Edge> &contours_,std::vector<double> &contour_heights_,int dz_){
+    contours = contours_;
+    contour_heights = contour_heights_;
+    dz = dz_;
+}
+
 void Draw::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
@@ -15,7 +21,7 @@ void Draw::paintEvent(QPaintEvent *event)
     //Draw points
     for (int i = 0; i < points.size(); i++)
     {
-        painter.drawEllipse(points[i].x() - 5, points[i].y() - 5, 10, 10);
+        painter.drawEllipse(points[i].x() - 5, points[i].y() - 5, 5, 5);
     }
 
     //Draw Delaunay edges
@@ -56,16 +62,30 @@ void Draw::paintEvent(QPaintEvent *event)
         }
 
         //Draw contour lines
-        QPen q(Qt::gray, 1);
-        painter.setPen(q);
+        int main_contour = dz * 5;
 
         for (int i = 0; i < contours.size(); i++)
         {
-            painter.drawLine(contours[i].getStart(), contours[i].getEnd());
+            double text_x = (contours[i].getStart().x() + contours[i].getEnd().x())/2;
+            double text_y = (contours[i].getStart().y() + contours[i].getEnd().y())/2;
+            int height = contour_heights[i];
+            if(height%(main_contour))
+            {
+                QPen q(QColor(139,69,19), 1);
+                painter.setPen(q);
+                painter.drawLine(contours[i].getStart(), contours[i].getEnd());
+            }
+            else
+            {
+                QPen q(QColor(139,69,19), 2);
+                painter.setPen(q);
+                painter.drawLine(contours[i].getStart(), contours[i].getEnd());
+                painter.drawText(text_x, text_y, QString::number(height));
+            }
         }
-
         painter.end();
     }
+
 
     //Draw aspect
     if(aspect == TRUE)

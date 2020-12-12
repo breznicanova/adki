@@ -41,10 +41,12 @@ void Widget::on_pushButton_7_clicked()
     }
 
     //Create contour lines
-    std::vector<Edge> contours = a.contourLines(dt, z_min, z_max, dz);
+    int dz = ui -> lineEdit_3 -> text().toInt();
+    std::vector<double> contour_heights;
+    std::vector<Edge> contours = a.contourLines(dt, z_min, z_max, dz, contour_heights);
 
     //Set contours
-    ui->Canvas->setContours(contours);
+    ui -> Canvas -> setContours(contours, contour_heights, dz);
 
     //Repaint
     repaint();
