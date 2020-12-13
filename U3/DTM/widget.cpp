@@ -205,3 +205,31 @@ void Widget::on_pushButton_clicked()
    ui->Canvas->repaint();
 }
 
+
+void Widget::on_pushButton_5_clicked()
+{
+    Algorithms alg;
+
+    std::vector<QPoint3D> &points = ui->Canvas->getPoints();
+    std::vector<Edge> &dt = ui->Canvas->getDT();
+    std::vector<Edge> &contours = ui->Canvas->getContours();
+    std::vector<Triangle> &dtm = ui->Canvas->getDTM();
+
+    points.clear();
+    dt.clear();
+    contours.clear();
+    dtm.clear();
+
+    //Get window size
+    int width = ui -> Canvas -> size().width();
+    int height = ui -> Canvas -> size().height();
+
+    //Get terrain feature
+    int tf = ui->comboBox_2->currentIndex();
+
+    std::vector<QPoint3D> tf_points = alg.generateTF(width,height,tf);
+
+    ui -> Canvas ->setPoints(tf_points);
+
+    repaint();
+}

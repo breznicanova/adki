@@ -1,5 +1,6 @@
 #include "algorithms.h"
 #include "sortbyx.h"
+#include <math.h>
 
 int Algorithms::getPointLinePosition(QPoint3D &q,QPoint3D &p1,QPoint3D &p2)
 {
@@ -414,6 +415,45 @@ std::vector<Triangle> Algorithms::analyzeDTM(std::vector<Edge> &dt)
     return triangles;
 }
 
+std::vector<QPoint3D> Algorithms::generateTF(int width, int height, int tf)
+{
+    std::vector<QPoint3D> points;
+
+    if(tf==0)
+    {
+        QPoint3D r_points;
+        QPoint3D top;
+
+        //Ellipse parameters
+        double a = width * 0.15;
+        double b = height * 0.1;
+        int n = rand()%5+10; //Number of point in particular ellipse
+
+        //Divide the ellipse to angles according to n value
+        double fi = (2*M_PI)/(n);
+
+        //Set coordinates to the peak
+        top.setX(width/2);
+        top.setY(height/2);
+        top.setZ(rand()%200 + 100);
+
+        //Create more ellipses with different radius and with different heights (bigger radius, smaller height)
+        for(int j = 0;j<5;j++)
+        {
+            //Generate ellipse with n points
+            for(int i = 0;i<n;i++)
+            {
+                r_points.setX(top.x() + a*cos(i*fi));
+                r_points.setY(top.y() + b*sin(i*fi));
+                r_points.setZ(top.getZ()-j*30);
+                points.push_back(r_points);
+            }
+            a+=j*30;
+            b+=j*30;
+        }
+    }
+    return points;
+}
 
 
 

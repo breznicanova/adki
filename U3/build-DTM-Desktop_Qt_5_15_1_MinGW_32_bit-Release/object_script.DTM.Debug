@@ -1,0 +1,10 @@
+debug/algorithms.o
+debug/draw.o
+debug/edge.o
+debug/main.o
+debug/qpoint3d.o
+debug/sortbyx.o
+debug/triangle.o
+debug/widget.o
+debug/moc_draw.o
+debug/moc_widget.o
