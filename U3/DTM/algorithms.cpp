@@ -419,7 +419,7 @@ std::vector<QPoint3D> Algorithms::generateTF(int width, int height, int tf)
 {
     std::vector<QPoint3D> points;
 
-    if(tf==0)
+    if (tf==0)
     {
         QPoint3D r_points;
         QPoint3D top;
@@ -452,6 +452,51 @@ std::vector<QPoint3D> Algorithms::generateTF(int width, int height, int tf)
             b+=j*30;
         }
     }
+
+    else if (tf==1)
+    {
+        std::vector<QPoint3D> r_points;
+        QPoint3D center;
+        QPoint3D right;
+        QPoint3D left;
+
+        int n = rand()%20 + 10; //number of points in one line
+        double a = width * 0.15;  //length of lines from center point
+
+        //Center lowest point
+        center.setX(width/2-50);
+        center.setY(height/4-150);
+        center.setZ(rand()%50);
+
+        for(int j = 0;j<5;j++)
+        {
+            //Create two parallel lines of points with the same height
+            for(int i = 0;i<n;i++)
+            {
+                right.setX(center.x()+a);
+                right.setY(center.y()+i*40);
+                right.setZ(center.getZ()+a);
+
+                left.setX(center.x()-a);
+                left.setY(center.y()+i*40);
+                left.setZ(center.getZ()+a);
+
+                r_points.push_back(right);
+                r_points.push_back(left);
+            }
+
+            a+=j*40;
+        }
+
+        // Adding elements one by one to the vector
+        for(int i=0; i < r_points.size(); i++)
+        {
+        QPoint3D a = r_points[i];
+        points.push_back(a);
+        }
+
+    }
+
     return points;
 }
 
