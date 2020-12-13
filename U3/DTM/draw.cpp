@@ -33,6 +33,29 @@ void Draw::paintEvent(QPaintEvent *event)
         painter.drawLine(dt[i].getStart(), dt[i].getEnd());
     }
 
+    //Draw contour lines
+    int main_contour = dz * 5;
+
+    for (int i = 0; i < contours.size(); i++)
+    {
+        double text_x = (contours[i].getStart().x() + contours[i].getEnd().x())/2;
+        double text_y = (contours[i].getStart().y() + contours[i].getEnd().y())/2;
+        int height = contour_heights[i];
+        if(height%(main_contour))
+        {
+            QPen q(QColor(139,69,19), 1);
+            painter.setPen(q);
+            painter.drawLine(contours[i].getStart(), contours[i].getEnd());
+        }
+        else
+        {
+            QPen q(QColor(139,69,19), 2);
+            painter.setPen(q);
+            painter.drawLine(contours[i].getStart(), contours[i].getEnd());
+            painter.drawText(text_x, text_y, QString::number(height));
+        }
+    }
+
     //Draw slope
     if(slope == TRUE)
     {
@@ -59,29 +82,6 @@ void Draw::paintEvent(QPaintEvent *event)
 
             //Draw triangle
             painter.drawPolygon(triangle);
-        }
-
-        //Draw contour lines
-        int main_contour = dz * 5;
-
-        for (int i = 0; i < contours.size(); i++)
-        {
-            double text_x = (contours[i].getStart().x() + contours[i].getEnd().x())/2;
-            double text_y = (contours[i].getStart().y() + contours[i].getEnd().y())/2;
-            int height = contour_heights[i];
-            if(height%(main_contour))
-            {
-                QPen q(QColor(139,69,19), 1);
-                painter.setPen(q);
-                painter.drawLine(contours[i].getStart(), contours[i].getEnd());
-            }
-            else
-            {
-                QPen q(QColor(139,69,19), 2);
-                painter.setPen(q);
-                painter.drawLine(contours[i].getStart(), contours[i].getEnd());
-                painter.drawText(text_x, text_y, QString::number(height));
-            }
         }
         painter.end();
     }
