@@ -102,7 +102,7 @@
      <item>
       <widget class="QLineEdit" name="lineEdit_3">
        <property name="text">
-        <string>10</string>
+        <string>1</string>
        </property>
       </widget>
      </item>
@@ -209,7 +209,7 @@
   <customwidget>
    <class>Draw</class>
    <extends>QWidget</extends>
-   <header>draw.h</header>
+   <header location="global">draw.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

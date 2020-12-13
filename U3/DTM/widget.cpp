@@ -12,7 +12,7 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
     z_min = 0;
     z_max = 500;
-    dz = 10;
+    dz = 1;
 }
 
 Widget::~Widget()
@@ -190,7 +190,7 @@ void Widget::on_pushButton_clicked()
    QString path = QFileDialog::getOpenFileName(
                this,
                tr("Select file"),
-               "/",
+               "../",
                "Text file (*.txt);;All files (*.*)");
 
    std::string path_utf8 = path.toUtf8().constData();
