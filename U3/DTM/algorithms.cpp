@@ -503,6 +503,78 @@ std::vector<QPoint3D> Algorithms::generateTF(int width, int height, int tf)
     //Spur
     else if (tf==2)
     {
+        std::vector<QPoint3D> r_points;
+        QPoint3D bot, mid, top; //bottom, middle and top parts of spur
+        QPoint3D random;
+        QPoint3D center;
+
+        //Ellipse parameters
+        double a = width * 0.15;
+        double b = height * 0.1;
+        int n = rand()%10 + 3;    //Number of point in particular ellipse
+        int m = rand()%100 + 150; //Size of terrain shape
+
+        center.setX(width/2);
+        center.setY(height/2);
+
+        // Center points of parts
+        bot.setX(center.x());
+        bot.setY(center.y()+m);
+        bot.setZ(200);
+
+        mid.setX(center.x());
+        mid.setY(center.y());
+        mid.setZ(500);
+
+        top.setX(center.x());
+        top.setY(center.y()-m);
+        top.setZ(800);
+
+        r_points.push_back(bot);
+        r_points.push_back(mid);
+        r_points.push_back(top);
+
+        double fi = 2*M_PI/10;
+
+        for(int i = 0;i<3;i++)
+        {
+            //Create the bottom part
+            for (int j = 0; j < n; j++)
+            {
+                random.setX(bot.x() + i*30*cos(j*fi) + rand()%20);
+                random.setY(bot.y() + i*30*sin(j*fi) + rand()%20);
+                random.setZ(bot.getZ());
+                r_points.push_back(random);
+            }
+
+            //Create the middle part
+            for (int j = 0; j < n; j++)
+            {
+                random.setX(mid.x() + i*50*cos(j*fi) + rand()%20);
+                random.setY(mid.y() + i*50*sin(j*fi) + rand()%20);
+                random.setZ(mid.getZ());
+                r_points.push_back(random);
+            }
+
+            //Create the top part
+            for (int j = 0; j < n; j++)
+            {
+                random.setX(top.x() + i*70*cos(j*fi) + rand()%20);
+                random.setY(top.y() + i*70*sin(j*fi) + rand()%20);
+                random.setZ(top.getZ());
+                r_points.push_back(random);
+
+            }
+            a+=i*50;
+            b+=i*50;
+        }
+
+        // Adding elements one by one to the vector
+        for(int i=0; i < r_points.size(); i++)
+        {
+        QPoint3D a = r_points[i];
+        points.push_back(a);
+        }
 
     }
 
