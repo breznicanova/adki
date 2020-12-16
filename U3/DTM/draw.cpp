@@ -198,7 +198,7 @@ void Draw::paintEvent(QPaintEvent *event)
                 painter.setBrush(QColor(139,69,19)); // saddlebrown
             }
 
-            else if (average >= 600)
+            else if (average > 600)
             {
                 painter.setBrush(QColor(255,0,0)); // red
             }
