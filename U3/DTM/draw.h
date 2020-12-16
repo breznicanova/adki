@@ -19,7 +19,7 @@ private:
     std::vector <Triangle> dtm;
     std::vector <double> contour_heights;
     int dz;
-    bool slope, aspect;
+    bool slope, aspect, colHyps;
 
 public:
     explicit Draw(QWidget *parent = nullptr);
@@ -35,6 +35,7 @@ public:
     std::vector<Triangle> & getDTM(){return dtm;}
     void setSlope(bool &slope_){slope = slope_;}//
     void setAspect(bool &aspect_){aspect = aspect_;}
+    void setColHyps(bool &colHyps_){colHyps = colHyps_;}
     void loadFile(std::string &path, std::vector<QPoint3D> &points,  QSizeF &canvas_size, double &min_z, double &max_z);
 
 signals:

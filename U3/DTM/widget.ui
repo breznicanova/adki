@@ -209,6 +209,11 @@
          <string>Aspect</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Color Hypsometry</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>

@@ -520,15 +520,15 @@ std::vector<QPoint3D> Algorithms::generateTF(int width, int height, int tf)
         // Center points of parts
         bot.setX(center.x());
         bot.setY(center.y()+m);
-        bot.setZ(200);
+        bot.setZ(100);
 
         mid.setX(center.x());
         mid.setY(center.y());
-        mid.setZ(500);
+        mid.setZ(200);
 
         top.setX(center.x());
         top.setY(center.y()-m);
-        top.setZ(800);
+        top.setZ(300);
 
         r_points.push_back(bot);
         r_points.push_back(mid);

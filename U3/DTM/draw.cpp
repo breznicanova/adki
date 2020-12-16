@@ -126,6 +126,94 @@ void Draw::paintEvent(QPaintEvent *event)
 
         painter.end();
     }
+
+    //Draw color hypsometry
+    if(colHyps == TRUE)
+    {
+        for (Triangle t : dtm)
+        {
+            //Get triangle vertices
+            QPoint3D p1 = t.getP1();
+            QPoint3D p2 = t.getP2();
+            QPoint3D p3 = t.getP3();
+
+            double z1 = p1.getZ();
+            double z2 = p2.getZ();
+            double z3 = p3.getZ();
+            double z1_;
+            double z2_;
+            double z3_;
+
+            std::vector<double> zs;
+
+            zs.push_back(z1);
+            zs.push_back(z2);
+            zs.push_back(z3);
+
+            std::sort (zs.begin(),zs.end());
+
+            if ((zs[0]-zs[2])>20)
+            {
+                z1_ = zs[0]*20;
+                z2_ = zs[1]*40;
+                z3_ = zs[2]*40;
+            }
+            else
+            {
+                z1_ = zs[0]*100/3;
+                z2_ = zs[1]*100/3;
+                z3_ = zs[2]*100/3;
+            }
+
+            double average = (z1_ + z2_ + z3_)/100;
+
+            //double average = (z1 + z2 + z3)/3;
+
+            if (average <= 100)
+            {
+                painter.setBrush(QColor(0,128,0)); // green
+            }
+            else if (average <= 200)
+            {
+                painter.setBrush(QColor(173,255,47)); // greenyellow
+            }
+
+            else if (average <= 300)
+            {
+                painter.setBrush(QColor(255,255,0)); // yellow
+            }
+
+            else if (average <= 400)
+            {
+                painter.setBrush(QColor(173,255,47)); // orange
+            }
+
+            else if (average <= 500)
+            {
+                painter.setBrush(QColor(255,69,0)); // orangered
+            }
+
+            else if (average <= 600)
+            {
+                painter.setBrush(QColor(139,69,19)); // saddlebrown
+            }
+
+            else if (average >= 600)
+            {
+                painter.setBrush(QColor(255,0,0)); // red
+            }
+
+            //Create triangle, add vertices
+            QPolygonF triangle;
+            triangle.append(QPointF(p1.x(), p1.y()));
+            triangle.append(QPointF(p2.x(), p2.y()));
+            triangle.append(QPointF(p3.x(), p3.y()));
+
+            //Draw triangle
+            painter.drawPolygon(triangle);
+        }
+        painter.end();
+    }
 }
 
 
@@ -135,7 +223,7 @@ void Draw::mousePressEvent(QMouseEvent *event)
     QPoint3D p;
     p.setX(event ->x());
     p.setY(event ->y());
-    double random = std::rand() * 200.0 / RAND_MAX;
+    double random = std::rand() * 1000.0 / RAND_MAX;
     p.setZ(random);
 
     //Add point to the list

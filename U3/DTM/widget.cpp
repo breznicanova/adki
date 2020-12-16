@@ -108,6 +108,7 @@ void Widget::on_pushButton_2_clicked()
     std::vector<Edge> dt;
     bool slope = FALSE;
     bool aspect = FALSE;
+    bool colHyps = FALSE;
 
     //DT needs to be created
     if(dt.size() == 0)
@@ -132,14 +133,22 @@ void Widget::on_pushButton_2_clicked()
     if (ui->comboBox->currentIndex()==0){
         slope = TRUE;
         aspect = FALSE;
+        colHyps = FALSE;
     }
     else if (ui->comboBox->currentIndex()==1){
         slope = FALSE;
         aspect = TRUE;
+        colHyps = FALSE;
+    }
+    else if (ui->comboBox->currentIndex()==2){
+        slope = FALSE;
+        aspect = FALSE;
+        colHyps = TRUE;
     }
 
     ui->Canvas->setAspect(aspect);
     ui->Canvas->setSlope(slope);
+    ui->Canvas->setColHyps(colHyps);
 
     //Repaint
     repaint();
