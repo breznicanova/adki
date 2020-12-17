@@ -127,7 +127,7 @@ void Draw::paintEvent(QPaintEvent *event)
         painter.end();
     }
 
-    //Draw color hypsometry
+    //Draw color hypsometric
     if(colHyps == TRUE)
     {
         for (Triangle t : dtm)
@@ -180,27 +180,27 @@ void Draw::paintEvent(QPaintEvent *event)
 
             else if (average <= 300)
             {
-                painter.setBrush(QColor(255,255,0)); // yellow
+                painter.setBrush(QColor(217,238,136)); // lightgreen
             }
 
             else if (average <= 400)
             {
-                painter.setBrush(QColor(173,255,47)); // orange
+                painter.setBrush(QColor(255,255,0)); // yellow
             }
 
             else if (average <= 500)
             {
-                painter.setBrush(QColor(255,69,0)); // orangered
+                painter.setBrush(QColor(255,165,0)); // orange
             }
 
             else if (average <= 600)
             {
-                painter.setBrush(QColor(139,69,19)); // saddlebrown
+                painter.setBrush(QColor(192,128,0)); // lightbrown
             }
 
             else if (average > 600)
             {
-                painter.setBrush(QColor(255,0,0)); // red
+                painter.setBrush(QColor(139,69,19)); // saddlebrown
             }
 
             //Create triangle, add vertices
@@ -223,7 +223,7 @@ void Draw::mousePressEvent(QMouseEvent *event)
     QPoint3D p;
     p.setX(event ->x());
     p.setY(event ->y());
-    double random = std::rand() * 1000.0 / RAND_MAX;
+    double random = std::rand() * 800.0 / RAND_MAX;
     p.setZ(random);
 
     //Add point to the list
