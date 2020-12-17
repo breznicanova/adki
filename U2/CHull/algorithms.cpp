@@ -1,11 +1,13 @@
+#include <cmath>
+#include <qdebug.h>
+#include <deque>
 #include "algorithms.h"
 #include "sortbyy.h"
 #include "sortbyx.h"
 #include "sortbyangle.h"
 #include "removebyangle.h"
-#include <cmath>
-#include <qdebug.h>
-#include <deque>
+
+#include "sortbyyright.h"
 
 Algorithms::Algorithms()
 {
@@ -296,13 +298,11 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
 
 QPolygon Algorithms::graham(std::vector<QPoint> &points)
 {
-    //Create Convex Hull using Graham Algorithm
+    //Create Convex Hull using Graham Scan Algorithm
+    QPolygon ch;
 
-    std::deque<QPoint> ch;
-    QPolygon ch2;
-
-    //Find pivot
-    QPoint q = *min_element(points.begin(),points.end(), sortByY());
+    //Find pivot q: the lowest rightmost point
+    QPoint q = *min_element(points.begin(), points.end(), sortByYRight());
 
     //Sort points by their directions
     std::sort(points.begin(), points.end(), sortByAngle(q));
@@ -319,24 +319,25 @@ QPolygon Algorithms::graham(std::vector<QPoint> &points)
 
     //Process all points
     int j = 2, n = points.size();
+
     while (j < n)
     {
-        //Get point on the top
+        //Get point on the top of Stack
         QPoint p1 = ch.front();
 
-        //Remove point
+        //Remove point on the top from Stack
         ch.pop_front();
 
-        //Get point on the top
+        //Get point on the top of Stack
         QPoint p2 = ch.front();
 
-        //Is points[j] in the left halfplane?
-        if (getPointLinePosition(points[j],p2,p1)==1)
+        //Is point[j] in the left halfplane?
+        if (getPointLinePosition(points[j], p2, p1) == 1)
         {
-            //Push point back to Stack
+            //Push point p1 to Stack
             ch.push_front(p1);
 
-            //Push next point back to Stack
+            //Push point[j] to Stack
             ch.push_front(points[j]);
 
             //Increment j
@@ -345,6 +346,8 @@ QPolygon Algorithms::graham(std::vector<QPoint> &points)
     }
 
     // Adding elements one by one to the vector
+    QPolygon ch2;
+
     for(int i=0; i < ch.size(); i++)
     {
         QPoint a = ch[i];

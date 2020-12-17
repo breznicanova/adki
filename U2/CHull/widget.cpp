@@ -45,7 +45,7 @@ void Widget::on_pushButton_clicked()
     else if (ui->comboBox->currentIndex()==2)
         ch = alg.sweepLine(points);
     //Graham Scan
-    else
+    else if (ui->comboBox->currentIndex()==3)
         ch = alg.graham(points);
 
     //Sort out points on Convex hull
