@@ -1,0 +1,11 @@
+debug/algorithms.o
+debug/draw.o
+debug/main.o
+debug/removebyangle.o
+debug/sortbyangle.o
+debug/sortbyx.o
+debug/sortbyy.o
+debug/sortbyyright.o
+debug/widget.o
+debug/moc_draw.o
+debug/moc_widget.o

@@ -1,0 +1,11 @@
+release/algorithms.o
+release/draw.o
+release/main.o
+release/removebyangle.o
+release/sortbyangle.o
+release/sortbyx.o
+release/sortbyy.o
+release/sortbyyright.o
+release/widget.o
+release/moc_draw.o
+release/moc_widget.o
