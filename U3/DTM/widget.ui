@@ -211,7 +211,7 @@
        </item>
        <item>
         <property name="text">
-         <string>Color Hypsometry</string>
+         <string>Color Hypsometric</string>
         </property>
        </item>
       </widget>
