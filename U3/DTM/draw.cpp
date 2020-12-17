@@ -127,7 +127,7 @@ void Draw::paintEvent(QPaintEvent *event)
         painter.end();
     }
 
-    //Draw color hypsometry
+    //Draw color hypsometric
     if(colHyps == TRUE)
     {
         for (Triangle t : dtm)
@@ -185,7 +185,7 @@ void Draw::paintEvent(QPaintEvent *event)
 
             else if (average <= 400)
             {
-                painter.setBrush(QColor(173,255,47)); // orange
+                painter.setBrush(QColor(255,165,0)); // orange
             }
 
             else if (average <= 500)
