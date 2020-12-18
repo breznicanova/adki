@@ -1,6 +1,7 @@
 #ifndef REMOVEBYANGLE_H
 #define REMOVEBYANGLE_H
 #include <QtGui>
+#include <cmath>
 
 class removeByAngle
 {
@@ -10,7 +11,7 @@ private:
 public:
     removeByAngle(QPoint &p){q=p;};
 
-    bool operator() (QPoint &p1, QPoint &p2)
+    bool operator() (const QPoint &p1,const QPoint &p2) const
     {
         //Compute direction sigma1, sigma2
         double sigma1 = atan2(p1.y()-q.y(),p1.x()-q.x());

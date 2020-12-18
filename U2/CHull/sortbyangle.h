@@ -1,8 +1,8 @@
 #ifndef SORTBYANGLE_H
 #define SORTBYANGLE_H
-
 #include <QtGui>
 #include <cmath>
+#include "algorithms.h"
 
 class sortByAngle
 {
@@ -10,7 +10,7 @@ private:
     QPoint q;
 
 public:
-    sortByAngle(QPoint p){q=p;}
+    sortByAngle(QPoint &p){q=p;}
 
     bool operator() (QPoint &p1, QPoint &p2)
     {

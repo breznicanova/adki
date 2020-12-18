@@ -6,7 +6,7 @@
 #include "sortbyx.h"
 #include "sortbyangle.h"
 #include "removebyangle.h"
-
+#include <stack>
 #include "sortbyyright.h"
 
 Algorithms::Algorithms()
