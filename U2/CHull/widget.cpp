@@ -67,13 +67,11 @@ void Widget::on_pushButton_clicked()
     {
         QPolygon strictly_ch = Algorithms::strictlyCH(ch);
         ui->Canvas->setCH(strictly_ch);
-        repaint();
     }
     //Or not
     else
     {
-        ui->Canvas->setCH(ch);
-        repaint();
+        ui->Canvas->setCH(ch);     
     }
 
     clock_t end_timer = std::clock();
@@ -82,6 +80,8 @@ void Widget::on_pushButton_clicked()
 
     //Set time
     ui -> label -> setText(QString::number(time) + "ms");
+
+    repaint();
 }
 
 void Widget::on_clear_CH_clicked()
