@@ -429,7 +429,7 @@ std::vector<QPoint3D> Algorithms::generateTF(int width, int height, int tf)
         //Ellipse parameters
         double a = width * 0.30;
         double b = height * 0.20;
-        int n = rand()%5+10; //Number of point in particular ellipse
+        int n = rand()%20 + 3; //Number of point in particular ellipse
 
         //Divide the ellipse to angles according to n value
         double fi = (2*M_PI)/(n);
