@@ -1,6 +1,7 @@
 #include "algorithms.h"
 #include "sortbyx.h"
 #include <math.h>
+#include <qdebug.h>
 
 int Algorithms::getPointLinePosition(QPoint3D &q,QPoint3D &p1,QPoint3D &p2)
 {
@@ -423,35 +424,40 @@ std::vector<QPoint3D> Algorithms::generateTF(int width, int height, int tf)
     //Knoll
     if (tf==0)
     {
-        QPoint3D r_points;
-        QPoint3D top;
+        QPoint3D p;
+        int n = rand()%20 + 10;
 
-        //Ellipse parameters
-        double a = width * 0.30;
-        double b = height * 0.20;
-        int n = rand()%20 + 3; //Number of point in particular ellipse
-
-        //Divide the ellipse to angles according to n value
-        double fi = (2*M_PI)/(n);
-
-        //Set coordinates to the peak
-        top.setX(width/2);
-        top.setY(height/2);
-        top.setZ(rand()%200 + 100);
-
-        //Create more ellipses with different radius and with different heights (bigger radius, smaller height)
-        for(int j = 0;j<5;j++)
+        for (int i = 0; i < n; i++)
         {
-            //Generate ellipse with n points
-            for(int i = 0;i<n;i++)
-            {
-                r_points.setX(top.x() + a*cos(i*fi));
-                r_points.setY(top.y() + b*sin(i*fi));
-                r_points.setZ(top.getZ()-j*30);
-                points.push_back(r_points);
-            }
-            a+=j*30;
-            b+=j*30;
+           p.setY(rand()%height);
+           p.setX(rand()%width);
+           p.setZ(((double)rand() / RAND_MAX)*250);
+
+           points.push_back(p);
+        }
+
+        QPoint3D c;
+        c.setX(0);
+        c.setY(0);
+
+        for (int i = 0; i < points.size(); i++)
+        {
+           double x = c.x()+points[i].x();
+           double y = c.y()+points[i].y();
+           c.setX(x);
+           c.setY(y);
+        }
+
+        QPoint3D pp;
+        pp.setX(c.x()/points.size());
+        pp.setY(c.y()/points.size());
+        pp.setZ(300);
+        points.push_back(pp);
+
+        for (int i = 0; i < (points.size()-1); i++)
+        {
+           double d = Algorithms::dist(points[n], points[i]);
+           points[i].setZ(300 - d + (((double)rand() / RAND_MAX)*5));
         }
     }
 
@@ -497,7 +503,7 @@ std::vector<QPoint3D> Algorithms::generateTF(int width, int height, int tf)
         QPoint3D a = r_points[i];
         points.push_back(a);
         }
-
+        qDebug() << points;
     }
 
     //Spur
@@ -622,7 +628,7 @@ std::vector<QPoint3D> Algorithms::generateTF(int width, int height, int tf)
         }
 
     }
-
+    qDebug() << points;
     return points;
 }
 

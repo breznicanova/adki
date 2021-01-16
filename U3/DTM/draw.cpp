@@ -150,7 +150,7 @@ void Draw::paintEvent(QPaintEvent *event)
             zs.push_back(z2);
             zs.push_back(z3);
 
-            std::sort (zs.begin(),zs.end());
+            std::sort(zs.begin(),zs.end());
 
             if ((zs[0]-zs[2])>20)
             {
